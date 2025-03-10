@@ -1,0 +1,32 @@
+Banco - Anuncios
+
+1 - Coleção (usuário)
+_id
+name
+email
+state
+password
+token
+
+2 - Coleção (states)
+_id
+name
+
+3 - Coleção (Categorias)
+_id
+name
+slug
+
+4 - Coleção (ads)
+_id
+imagens[url]
+idUser *
+dateCreated
+state *
+title
+category
+price
+description
+priceNegotiable
+views
+status
