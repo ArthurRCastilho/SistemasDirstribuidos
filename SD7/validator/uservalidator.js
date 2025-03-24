@@ -2,28 +2,29 @@ const {checkSchema} = require ('express-validator');
 
 module.exports = {
     editAction: checkSchema({
-        name:{
+        name: {
             notEmpty: true,
-            trim: true,
-            isLength: {
-                options: {min: 2}
+            trim: true, //consumir os espaços em branco, por exemplo os espaços escritos apos o usuario digitar o nome
+            isLength:{
+                options: {min:2}
             },
             errorMessage: 'Nome precisa de pelo menos 2 caracteres'
         },
         email: {
-            isEmail: true,
+            isEmail:true,
             normalizeEmail: true,
-            errorMessage: 'Email Invalido'
+            errorMessage: 'Email invalido'
         },
-        passwordHash: {
-            isLength: {
+        passwordHash:{
+            isLength:{
                 options: {min: 8}
             },
-            errorMessage: 'A senha precisa ter pelo menos 8 caracteres'
+            errorMessage: 'Senha precisa de pelo menos 8 caracteres'
         },
         state: {
             notEmpty: true,
-            errorMessage: 'Estado Obrigatorio'
-        },
+            errorMessage: 'Estado obrigatorio'
+            
+        }
     })
 }

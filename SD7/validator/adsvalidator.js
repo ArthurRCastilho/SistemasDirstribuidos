@@ -1,67 +1,38 @@
-const { checkSchema } = require('express-validator');
+const { ExpressValidator, checkSchema } = require("express-validator");
+const { editAction } = require("./uservalidator");
 
 module.exports = {
-    createAd: checkSchema({
-        idUser: {
-            notEmpty: {
-                errorMessage: 'O campo idUser é obrigatório.',
-            },
-            isString: {
-                errorMessage: 'O campo idUser deve ser uma string.',
-            },
+    editAction: checkSchema({
+        idUser:{
+            notEmpty: true,
+            isString: true,
+            errorMessage: 'Precisa conter um numero de id de user'
         },
-        state: {
-            notEmpty: {
-                errorMessage: 'O campo state é obrigatório.',
-            },
-            isString: {
-                errorMessage: 'O campo state deve ser uma string.',
-            },
+
+        dataCreated: {
+            isISO8601: true,
+            optional: true,
+            errorMessage: 'Data de criação inválida'
         },
-        title: {
-            notEmpty: {
-                errorMessage: 'O campo title é obrigatório.',
+
+        tittle: {
+            notEmpty: true,
+            trim: true,
+            isLength: {
+                options: {min:1}
             },
-            isString: {
-                errorMessage: 'O campo title deve ser uma string.',
-            },
+            errorMessage: 'Titulo precisa de pelo menos 1 caractere '
         },
-        category: {
-            notEmpty: {
-                errorMessage: 'O campo category é obrigatório.',
-            },
-            isMongoId: {
-                errorMessage: 'O campo category deve ser um ObjectId válido.',
-            },
-        },
+
         price: {
-            notEmpty: {
-                errorMessage: 'O campo price é obrigatório.',
+            isFloat: {
+                options: {min: 0}
             },
-            isString: {
-                errorMessage: 'O campo price deve ser uma string.',
-            },
-        },
-        description: {
-            notEmpty: {
-                errorMessage: 'O campo description é obrigatório.',
-            },
-            isString: {
-                errorMessage: 'O campo description deve ser uma string.',
-            },
-        },
-        priceNegotiable: {
-            optional: true,
-            isBoolean: {
-                errorMessage: 'O campo priceNegotiable deve ser um booleano.',
-            },
-        },
-        status: {
-            optional: true,
-            isIn: {
-                options: [['active', 'inactive']],
-                errorMessage: 'O campo status deve ser "active" ou "inactive".',
-            },
-        },
-    }),
-};
+            errorMessage: 'O preço nao pode ser negativo'
+        }
+
+
+
+        
+    })
+}

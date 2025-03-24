@@ -1,15 +1,16 @@
-const express = require ('express');
+const express = require('express');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.send('Ola Mundo');
+
+    res.send('Ola mundo');
 });
 
-//configuracoes basicas
-//inicializar o express
+// Configurações básicas
+// Inicializar o express
 const app = express();
 app.use('/', router);
 
-//exportar app para importar no servidor
+// Exportar o app para importar no servidor
 module.exports = app;

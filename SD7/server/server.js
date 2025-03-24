@@ -1,24 +1,31 @@
-//puxar aruqivo da aplicacao
-
-const app = require('../app');
-
 const mongoose = require('mongoose');
+const express = require('express');
+const cors = require('cors');
+const fileupload = require('express-fileupload');
+require('dotenv').config({ path: 'variables.env' });
 
-require('dotenv').config({path: 'variables.env'});
+const apiRouters = require('../routers');
 
-mongoose.connect(process.env.DATABASE, {useNewUrlParser: true, 
-    useUnifiedTopology: true });
+// Conectar ao banco de dados
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (error) => {
-    console.error("ERROR" + error.message);
+    console.error("ERRO: " + error.message);
 });
-//DATABASE=mongodb://127.0.0.1:27017/SD7
 
-app.set('port', process.env.PORT || 7777);
+// Criar instância do Express
+const server = express();
 
-//inicio do servidor --- observar qual porta sera selecionada
+// Configurar middlewares
+server.use(cors());
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+server.use(fileupload());
+server.use('/', apiRouters);
 
-const server = app.listen(app.get('port'), () => {
-    console.log("Servidor rodando na porta "
-         + server.address().port);
+// Definir a porta corretamente
+const PORT = process.env.PORT || 7778;
+
+server.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
