@@ -1,5 +1,5 @@
 const mongoose = require ('mongoose');
-const State = require('../models/states');
+const State = require('../models/States');
 const User = require('../models/user');
 
 module.exports = {

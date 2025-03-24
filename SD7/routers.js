@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userController = require("./controller/userController");
+const userController = require("./controllers/userController");
 
 router.get('/ping', (req, res) => {
     res.json({retorno: true});

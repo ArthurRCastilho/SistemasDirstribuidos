@@ -10,7 +10,7 @@ const modelSchema = new mongoose.Schema({
     state: { type: String, required: true },
     title: { type: String, required: true },
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category', required: true }, // Referência ao modelo Category
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     description: { type: String, required: true },
     priceNegotiable: { type: Boolean, default: false },
     views: { type: Number, default: 0 },

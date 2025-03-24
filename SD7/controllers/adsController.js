@@ -1,5 +1,5 @@
 const moongose = require ('mongoose');
-const Ads = require('./models/ads');
+const Ads = require('../models/ads');
 
 module.exports = {
     getAds: async(req, res) => {
