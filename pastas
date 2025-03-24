@@ -1,0 +1,24 @@
+└── SD7
+    ├── controllers
+        ├── adsController.js
+        ├── categoryController.js
+        ├── statesController.js
+        └── userController.js
+    ├── models
+        ├── ads.js
+        ├── category.js
+        ├── states.js
+        └── user.js
+    ├── routes
+        ├── adsRoutes.js
+        ├── categoryRoutes.js
+        ├── statesRoutes.js
+        └── usersRoutes.js
+    ├── server
+        └── server.js
+    ├── validator
+        ├── adsvalidator.js
+        ├── categoryvalidator.js
+        ├── statesvalidator.js
+        └── uservalidator.js
+    └── app.js
