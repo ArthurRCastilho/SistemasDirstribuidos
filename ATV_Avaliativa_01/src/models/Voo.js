@@ -40,15 +40,33 @@ const vooSchema = new Schema({
 
 // Middleware para atualizar disponibilidade do portão
 vooSchema.pre('save', async function(next) {
-    if (this.isModified('portaoId')) {
+    try {
         const PortaoEmbarque = mongoose.model('PortaoEmbarque');
-        await PortaoEmbarque.findByIdAndUpdate(this.portaoId, { disponivel: false });
+        
+        // Se o portão foi modificado
+        if (this.isModified('portaoId')) {
+            // Se houver um portão anterior, libera ele
+            if (this._oldPortaoId) {
+                await PortaoEmbarque.findByIdAndUpdate(this._oldPortaoId, { disponivel: true });
+            }
+            // Marca o novo portão como indisponível
+            await PortaoEmbarque.findByIdAndUpdate(this.portaoId, { disponivel: false });
+        }
+        
+        // Se o status foi modificado para concluído ou cancelado
+        if (this.isModified('status') && (this.status === 'concluido' || this.status === 'cancelado')) {
+            if (this.portaoId) {
+                await PortaoEmbarque.findByIdAndUpdate(this.portaoId, { disponivel: true });
+            }
+        }
+        
+        // Armazena o portão atual para a próxima atualização
+        this._oldPortaoId = this.portaoId;
+        
+        next();
+    } catch (error) {
+        next(error);
     }
-    if (this.isModified('status') && this.status === 'concluido') {
-        const PortaoEmbarque = mongoose.model('PortaoEmbarque');
-        await PortaoEmbarque.findByIdAndUpdate(this.portaoId, { disponivel: true });
-    }
-    next();
 });
 
 module.exports = mongoose.model('Voo', vooSchema); 

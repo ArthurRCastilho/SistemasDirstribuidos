@@ -1,9 +1,23 @@
 const Voo = require('../models/Voo');
 const Passageiro = require('../models/Passageiro');
+const PortaoEmbarque = require('../models/PortaoEmbarque');
+
+// Função auxiliar para verificar disponibilidade do portão
+async function verificarDisponibilidadePortao(portaoId) {
+    const portao = await PortaoEmbarque.findById(portaoId);
+    if (!portao) {
+        throw new Error('Portão não encontrado');
+    }
+    if (!portao.disponivel) {
+        throw new Error('Portão já está em uso por outro voo');
+    }
+    return true;
+}
 
 // Criar um novo voo
 exports.criarVoo = async (req, res) => {
     try {
+        await verificarDisponibilidadePortao(req.body.portaoId);
         const voo = new Voo(req.body);
         await voo.save();
         res.status(201).json(voo);
@@ -38,6 +52,17 @@ exports.buscarVooPorId = async (req, res) => {
 // Atualizar voo
 exports.atualizarVoo = async (req, res) => {
     try {
+        if (req.body.portaoId) {
+            // Se estiver alterando o portão, verifica disponibilidade
+            await verificarDisponibilidadePortao(req.body.portaoId);
+            
+            // Libera o portão anterior
+            const vooAtual = await Voo.findById(req.params.id);
+            if (vooAtual && vooAtual.portaoId) {
+                await PortaoEmbarque.findByIdAndUpdate(vooAtual.portaoId, { disponivel: true });
+            }
+        }
+
         const voo = await Voo.findByIdAndUpdate(
             req.params.id,
             req.body,
