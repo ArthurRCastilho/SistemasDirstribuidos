@@ -6,6 +6,15 @@ const State = require('../models/states');
 const { validationResult, matchedData } = require('express-validator');
 
 module.exports = {
+    getAds: async (req, res) => {
+        try {
+            const ads = await Ads.find(); // Busca todos os anúncios
+            res.json({ ads });
+        } catch (error) {
+            res.status(500).json({ error: 'Erro ao buscar anúncios' });
+        }
+    },
+    
     editAds: async (req, res) => {
         const erros = validationResult(req);
         if (!erros.isEmpty()) {

@@ -1,0 +1,44 @@
+{
+    "numeroVoo": 101,
+    "origem": "São Paulo",
+    "destino": "Rio de Janeiro",
+    "dataHoraPartida": "2024-03-20T08:30:00",
+    "status": "programado",
+    "portaoId": "6821f75649d03a75d113b38a"
+}
+
+{
+    "numeroVoo": 102,
+    "origem": "Rio de Janeiro",
+    "destino": "Belo Horizonte",
+    "dataHoraPartida": "2024-03-20T10:15:00",
+    "status": "programado",
+    "portaoId": "6821f75649d03a75d113b38b"
+}
+
+{
+    "numeroVoo": 103,
+    "origem": "Belo Horizonte",
+    "destino": "Brasília",
+    "dataHoraPartida": "2024-03-20T14:45:00",
+    "status": "programado",
+    "portaoId": "6821f75649d03a75d113b38c"
+}
+
+{
+    "numeroVoo": 104,
+    "origem": "Brasília",
+    "destino": "Salvador",
+    "dataHoraPartida": "2024-03-20T16:30:00",
+    "status": "programado",
+    "portaoId": "6821f75649d03a75d113b38d"
+}
+
+{
+    "numeroVoo": 105,
+    "origem": "Salvador",
+    "destino": "Recife",
+    "dataHoraPartida": "2024-03-20T18:00:00",
+    "status": "programado",
+    "portaoId": "6821f75649d03a75d113b38e"
+}
