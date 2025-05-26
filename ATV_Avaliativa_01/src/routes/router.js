@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
 });
 
 // Rotas para Portões
-router.post('/portoes', portaoController.criarPortao);
+router.post('/portoes', portaoController.criarPortao);e
 router.get('/portoes', portaoController.listarPortoes);
 router.get('/portoes/:id', portaoController.buscarPortaoPorId);
 router.put('/portoes/:id', portaoController.atualizarPortao);

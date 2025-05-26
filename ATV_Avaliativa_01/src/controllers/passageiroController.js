@@ -1,10 +1,11 @@
 const Passageiro = require('../models/Passageiro');
 
-// Criar um novo passageiro
+// Criar novo passageiro
 exports.criarPassageiro = async (req, res) => {
     try {
         const passageiro = new Passageiro(req.body);
         await passageiro.save();
+        await passageiro.populate('vooId');
         res.status(201).json(passageiro);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -65,8 +66,8 @@ exports.deletarPassageiro = async (req, res) => {
     }
 };
 
-// Atualizar status de check-in
-exports.atualizarStatusCheckin = async (req, res) => {
+// Fazer check-in do passageiro
+exports.fazerCheckin = async (req, res) => {
     try {
         const passageiro = await Passageiro.findById(req.params.id);
         if (!passageiro) {
@@ -75,8 +76,12 @@ exports.atualizarStatusCheckin = async (req, res) => {
 
         passageiro.statusCheckin = 'realizado';
         await passageiro.save();
-        
-        res.json(passageiro);
+        await passageiro.populate('vooId');
+
+        res.json({
+            message: 'Check-in realizado com sucesso',
+            passageiro
+        });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

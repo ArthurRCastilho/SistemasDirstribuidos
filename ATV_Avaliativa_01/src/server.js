@@ -6,7 +6,7 @@ const routes = require('./routes/router');
 const app = express();
 
 // Configurações do MongoDB
-mongoose.connect('mongodb://localhost:27017/aeroporto', {
+mongoose.connect('mongodb://localhost:3000/aeroporto', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
