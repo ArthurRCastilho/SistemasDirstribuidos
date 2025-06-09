@@ -10,7 +10,7 @@ const gerarToken = (funcionario) => {
             cargo: funcionario.cargo
         },
         process.env.JWT_SECRET,
-        { expiresIn: '2m' }
+        { expiresIn: '30m' }
     );
 };
 
